@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-""" Async comprenhesion gen """
+""" Measure times """
 import asyncio
-from typing import List
+import time
+
+async_comprehension = __import__('1-async_comprehension').async_comprehension
 
 
-async_generator = __import__('0-async_generator').async_generator
-
-
-async def async_comprehension() -> List[float]:
+async def measure_runtime() -> float:
     """
-        Generate numbers with async comprenhension
+        measure time and execute in paralallel
 
         Args:
             void
@@ -17,4 +16,9 @@ async def async_comprehension() -> List[float]:
         Return:
             float random numbers
     """
-    return ([i async for i in async_generator()])
+    first_time = time.perf_counter()
+    tasks = [async_comprehension() for _ in range(4)]
+    await asyncio.gather(*tasks)
+    elapsed = time.perf_counter()
+
+    return (elapsed - first_time)
