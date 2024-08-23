@@ -1,3 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
-print("hello le monde")
+""" that module lists all documents in a collection """
+
+def list_all(mongo_collection):
+    """Lists all documents in a collection"""
+    return ()
