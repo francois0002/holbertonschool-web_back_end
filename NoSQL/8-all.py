@@ -7,8 +7,6 @@ import pymongo
 def list_all(mongo_collection):
     """Lists all documents in a collection"""
 
-    if not mongo_collection:
-        return []
     documents = mongo_collection.find()
     return documents
 
