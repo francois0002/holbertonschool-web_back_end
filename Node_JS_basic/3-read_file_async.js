@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-function countStudents(filePath) {
+async function countStudents(filepath) {
   try {
-    const csv = fs.readFileSync(filePath, { encoding: 'utf8' });
+    const csv = await fs.promises.readFile(filepath, { encoding: 'utf8' });
     const headerArray = csv.split(/\r?\n|\n/);
     const headers = headerArray[0].split(',');
 
-
+    // strip headers and convert to list of dicts
     const dictList = [];
     const noHeaderArray = headerArray.slice(1);
     for (let i = 0; i < noHeaderArray.length; i += 1) {
@@ -20,7 +20,7 @@ function countStudents(filePath) {
       }
     }
 
-
+    // count and collect first names of students per field
     let countCS = 0;
     let countSWE = 0;
     const studentsCS = [];
@@ -38,7 +38,7 @@ function countStudents(filePath) {
 
     const countStudents = countCS + countSWE;
 
-
+    // print statements
     console.log(`Number of students: ${countStudents}`);
     console.log(`Number of students in CS: ${countCS}. List: ${studentsCS.toString().split(',').join(', ')}`);
     console.log(`Number of students in SWE: ${countSWE}. List: ${studentsSWE.toString().split(',').join(', ')}`);
